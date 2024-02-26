@@ -47,13 +47,13 @@ int largestLessThanK(vector<int>& a, int x) {
 			res[i] = digits[i];
 			continue;
 		}
-		//we find a number less than x and they have the same bit length 
+		//we find a number less than x and they have the same length 
 		int num = find(a, digits[i]);
 		if (num > 0) {
 			res[i] = num;
 			break;
 		}
-		//the least number in a is equal or larger than x if they have the same bit length
+		//the least number in a is equal or larger than x if they have the same length
 		// we need to backtrack
 
 		// we should ensure i >= 0 to construct the res
