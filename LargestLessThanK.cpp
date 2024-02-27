@@ -15,8 +15,8 @@ using namespace std;
 
 // find the largest number that is less than target
 int find(vector<int>& a, int target) {
-	for (int i = a.size() - 1; i >= 0; --i) 
-		if (a[i] < target) 
+	for (int i = a.size() - 1; i >= 0; --i)
+		if (a[i] < target)
 			return a[i];
 
 	return 0;
@@ -33,16 +33,16 @@ int largestLessThanK(vector<int>& a, int x) {
 	sort(a.begin(), a.end());
 	//use a hash table to record
 	unordered_map<int, bool> m;
-	for (auto v : a) 
+	for (auto v : a)
 		m[v] = true;
 
 	// the possible answer
 	int n = digits.size();
 	vector<int> res(n, 0);
 
-
+	
 	for (int i = 0; i < n; i++) {
-		
+
 		if (i < n - 1 && m.count(digits[i])) {
 			res[i] = digits[i];
 			continue;
@@ -56,17 +56,20 @@ int largestLessThanK(vector<int>& a, int x) {
 		//the least number in a is equal or larger than x if they have the same length
 		// we need to backtrack
 
+
 		// we should ensure i >= 0 to construct the res
 		for (i = max(i - 1, 0); i >= 0; i--) {
 			// try to find a number less than x 
 			num = find(a, digits[i]);
 			if (num > 0) {
 				res[i] = num;
+				for (int j = i + 1; j < res.size(); ++j)
+					res[j] = 0;
 				break;
 			}
 			// the least number in a is larger than x if they have the same length
 			// we need a number shorter than x
-			if (i == 0) 
+			if (i == 0)
 				res.resize(n - 1, a.back());
 
 		}
@@ -78,7 +81,8 @@ int largestLessThanK(vector<int>& a, int x) {
 		target *= 10;
 		if (res[i] > 0) {
 			target += res[i];
-		} else {
+		}
+		else {
 			target += a.back();
 		}
 	}
@@ -116,5 +120,8 @@ int main() {
 
 9 8
 1111
+
+1 9
+9911
 */
 
